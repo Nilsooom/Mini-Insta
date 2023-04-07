@@ -1,4 +1,4 @@
-# Nosso Mini Insta
+# Mini Instagram
 
 ## O que o usuário pode fazer
 
