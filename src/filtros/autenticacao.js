@@ -17,6 +17,9 @@ async function autenticarUsuario(req, res, next) {
 
         const buscar = await knex('usuarios').where({ id }).first()
 
+        //Caso usuario tenha um token valído mas usuario foi deletado.
+        if (!buscar) { return res.status(400).json({ mensagem: "Não autorizado" }) }
+
         const { senha: _, ...dadosUsuario } = buscar
 
         req.usuario = dadosUsuario

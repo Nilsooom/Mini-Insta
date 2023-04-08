@@ -102,7 +102,7 @@
 
 - Receber token no header e validar
 - Buscar o cadastro do usuario através do token (info do token)
-- Exigir ao menos um capo para ser atualizado
+- Exigir ao menos um campo para ser atualizado
 - Criptografar nova senha se for informada
 - Verificar se já existe username e email, caso queira altera-los
 
