@@ -1,13 +1,14 @@
 require('dotenv').config()
 
+const rota = require('./rotas');
 const express = require('express');
+
 const app = express();
 
 app.use(express.json());
+app.use(rota)
 
-app.get('/', (req, res) => {
-    return res.json("Teste ok")
-})
+
 
 
 app.listen(process.env.PORT, () => {

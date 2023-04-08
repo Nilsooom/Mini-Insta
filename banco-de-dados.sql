@@ -12,7 +12,7 @@ create table usuarios (
     telefone text,
     genero text,
     senha text not null,
-    verrificado boolean default false
+    verificado boolean default false
 );
 
 -- Tabelas referente a postagens
