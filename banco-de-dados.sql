@@ -27,7 +27,7 @@ create table postagens (
 -- Fotos
 create table postagem_fotos (
     id serial primary key,
-    postagem_id int not null, -- Referencia da postagem
+    postagem_id int not null, -- Referencia da postagem (quem postou)
     imagem text not null, -- URL da imagem
     foreign key (postagem_id) references postagens (id)
 );

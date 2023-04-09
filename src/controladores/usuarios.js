@@ -104,8 +104,6 @@ async function atualizarPerfil(req, res) {
         console.log(error)
         return res.status(500).json({ mensagem: `Erro interno do servidor. Error: ${error.message}` })
     }
-
-
 }
 
 

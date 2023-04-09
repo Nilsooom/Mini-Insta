@@ -1,23 +1,33 @@
 const user = require('./controladores/usuarios');
+const post = require('./controladores/postagens')
 const login = require('./controladores/login');
-const autenticarUsuario = require('./filtros/autenticacao');
+
 const multer = require('./multer');
+const autenticarUsuario = require('./filtros/autenticacao');
 const { Router } = require('express');
 
+
 const rota = Router()
+
+//Cadastro de Usuario:
+rota.post('/usuario/cadastro', user.cadastroDeUsuario);
 
 
 //Loguin:
 rota.post('/login', login);
 
-//Rotas de Usuario:
-rota.post('/usuario/cadastro', user.cadastroDeUsuario);
 
-//Rotas com autenticação de usuario:
+//Validação de usuario logado:
 rota.use(autenticarUsuario);
-rota.get('/usuario/perfil', user.perfilDeUsuario);
-rota.post('/usuario/perfil', multer.single('foto'), user.atualizarPerfil);
 
+
+//Rotas de Usuario com validação de token:
+rota.get('/usuario/perfil', user.perfilDeUsuario);
+rota.put('/usuario/perfil', multer.single('foto'), user.atualizarPerfil);
+
+//Postagens:
+rota.post('/usuario/postagem', post.newPost);
+rota.post('/usuario/postagem/:postagem_id/curtir', post.curtir)
 
 
 
