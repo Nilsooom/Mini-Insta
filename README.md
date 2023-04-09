@@ -112,7 +112,7 @@
 
 #### Dados enviados
 - token
-- offset
+- offset (páginação)
 
 #### Dados retornados
 - Postagens []

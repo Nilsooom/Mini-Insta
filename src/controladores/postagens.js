@@ -70,7 +70,93 @@ async function curtir(req, res) {
 
 }
 
+async function comentar(req, res) {
+    const { postagem_id } = req.params;
+    const { id } = req.usuario;
+    const { texto } = req.body;
+
+    if (!texto) {
+        return res.status(404).json({ mensagem: "Para comentar é necessario enviar o texto." })
+    }
+
+    try {
+
+        const post = await knex('postagens').where({ id: postagem_id }).first()
+
+        if (!post) {
+            return res.status(404).json({ mensagem: "Postagem não encontrada" })
+        }
+
+        const comentarios = await knex('postagem_comentarios').insert({
+            usuario_id: id,
+            postagem_id: post.id,
+            texto
+        })
+
+        if (!comentarios) {
+            return res.status(400).json({ mensagem: "Não foi possivel realizar o comentario." })
+        }
+
+        return res.json({ mensagem: "Comentario enviado com sucesso!" })
+
+    } catch (error) {
+        return res.status(500).json({ mensagem: `Erro interno do servidor. Error: ${error.message}` })
+    }
+}
+
+async function feed(req, res) {
+    const { id } = req.usuario;
+    const { offset } = req.query;
+
+    const page = offset ? offset : 0
+
+    try {
+        const post = await knex('postagens').where('usuario_id', '!=', id).limit(10).offset(page)
+
+        if (post.lenght === 0) {
+            return res.status(200).json(post)
+        }
+
+        for (let postagem of post) {
+            //Inf do usuario:
+            const usuario = await knex('usuarios').where({ id: postagem.id })
+                .select('imagem', 'username', 'verrificado').first()
+            postagem.usuario = usuario // cria uma propriedade 'usuario' dentro do objeto postagem
+
+            //fotos
+            const fotos = await knex('postagem_fotos').where({ postagem_id: postagem.id }).select('imagem')
+            postagem.fotos = fotos
+
+            //curtidas
+
+            const curtidas = await knex('postagem_curtidas').where({ postagem_id: postagem.id }).select('usuario_id')
+            postagem.curtidas = curtidas.lenght // Apenas a quantidade de curtidas
+
+            //Curtidas por mim
+            postagem.curtidoByMe = curtidas.find(curtida => curtida.usuario_id === id) ? true : false
+
+            //Comentarios
+            const comentarios = await knex('postagem_comentarios')
+                .leftJoin('usuarios', 'usuarios.id', 'postagem_comentarios.usuario_id')
+                .where({ postagem_id: postagem.id }).select('usuarios.username', 'postagem_comentarios.texto')
+            postagem.comentarios = comentarios
+        }
+
+        return res.status(200).json(post)
+
+    } catch (error) {
+        return res.status(500).json({ mensagem: `Erro interno do servidor. Error: ${error.message}` })
+    }
+
+
+
+
+}
+
+
 module.exports = {
     newPost,
-    curtir
+    curtir,
+    comentar,
+    feed
 }

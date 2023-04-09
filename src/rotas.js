@@ -26,9 +26,10 @@ rota.get('/usuario/perfil', user.perfilDeUsuario);
 rota.put('/usuario/perfil', multer.single('foto'), user.atualizarPerfil);
 
 //Postagens:
-rota.post('/usuario/postagem', post.newPost);
-rota.post('/usuario/postagem/:postagem_id/curtir', post.curtir)
-
+rota.get('/postagem', post.feed)
+rota.post('/postagem', post.newPost);
+rota.post('/postagem/:postagem_id/curtir', post.curtir);
+rota.post('/postagem/:postagem_id/comentario', post.comentar);
 
 
 
