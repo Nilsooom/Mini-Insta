@@ -31,14 +31,6 @@
 - sucesso / erro
 - token
 
-#### Objetivos Gerais
-
-- Validar username e a senha
-- Buscar o usuario no banco de dados
-- Verificar se a senha informada está correta
-- Gerar token de autenticação
-- Retornar os dados do usuario
-
 ---
 
 ### POST - Cadastro
@@ -49,13 +41,6 @@
 
 #### Dados retornados
 - sucesso / erro
-
-#### Objetivos Gerais
-
-- Validar username e a senha
-- Verificar se username já existe no banco de dados
-- Criptografar a senha
-- Cadastrar usuario no banco de dados
 
 ---
 
@@ -74,12 +59,6 @@
 - Telefone
 - Genero
 
-#### Objetivos Gerais
-
-- Receber token no header e validar
-- Buscar o cadastro do usuario através do token (info do token)
-- Retornar os dados do usuario
-
 ---
 
 ### POST - Perfil - ATUALIZAR
@@ -97,14 +76,6 @@
 
 #### Dados retornados
 - Sucesso ou erro
-
-#### Objetivos Gerais
-
-- Receber token no header e validar
-- Buscar o cadastro do usuario através do token (info do token)
-- Exigir ao menos um campo para ser atualizado
-- Criptografar nova senha se for informada
-- Verificar se já existe username e email, caso queira altera-los
 
 ---
 
@@ -128,13 +99,7 @@
         - username
         - texto
     - Data
-
-#### Objetivos Gerais
-
-- Receber token no header e validar
-- Buscar o cadastro do usuario através do token (info do token)
-- Retornar postagens de outras pessoas
-
+    
 ---
 
 ### POST - Postagens - Postar fotos
@@ -147,14 +112,6 @@
 #### Dados retornados
 - Sucesso ou erro
 
-#### Objetivos Gerais
-
-- Receber token no header e validar
-- Buscar o cadastro do usuario através do token (info do token)
-- Exigir que seja enviado ao menos uma foto
-- Cadastrar postagem para o usuario logado
-- Cadastro das fotos da postagem (tabela de fotos)
-
 ### POST - Curtir
 
 #### Dados enviados
@@ -163,14 +120,6 @@
 
 #### Dados retornados
 - sucesso ou erro
-
-#### Objetivos Gerais
-
-- Receber token no header e validar
-- Buscar o cadastro do usuario através do token (info do token)
-- Buscar o cadastro da postagem com o id informado
-- Verificar se o usuario já curtiu a postagem (não duplicar o registro)
-- Cadastrar curtida (tabela curtidas)
 
 ---
 
@@ -183,11 +132,3 @@
 
 #### Dados retornados
 - sucesso ou erro
-
-#### Objetivos Gerais
-
-- Receber token no header e validar
-- Buscar o cadastro do usuario através do token (info do token)
-- Validar se foi enviado texto
-- Buscar a postagem pelo id informado
-- Cadastrar comentario
